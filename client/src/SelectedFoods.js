@@ -39,7 +39,7 @@ export default function SelectedFoods(props) {
             {sum(foods, "kcal")}
           </th>
           <th className="right aligned" id="total-protein_g">
-            {sum(foods, "protein_g")}
+            {sum(foods, "kcal")}
           </th>
           <th className="right aligned" id="total-fat_g">
             {sum(foods, "fat_g")}

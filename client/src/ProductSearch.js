@@ -3,9 +3,9 @@ import Client from "./Client";
 
 const MATCHING_ITEM_LIMIT = 25;
 
-class FoodSearch extends React.Component {
+class ProductSearch extends React.Component {
   state = {
-    foods: [],
+    products: [],
     showRemoveIcon: false,
     searchValue: ""
   };
@@ -19,7 +19,7 @@ class FoodSearch extends React.Component {
 
     if (value === "") {
       this.setState({
-        foods: [],
+        products: [],
         showRemoveIcon: false
       });
     } else {
@@ -27,9 +27,9 @@ class FoodSearch extends React.Component {
         showRemoveIcon: true
       });
 
-      Client.search(value, foods => {
+      Client.search(value, products => {
         this.setState({
-          foods: foods.slice(0, MATCHING_ITEM_LIMIT)
+          products: products.slice(0, MATCHING_ITEM_LIMIT)
         });
       });
     }
@@ -37,28 +37,28 @@ class FoodSearch extends React.Component {
 
   handleSearchCancel = () => {
     this.setState({
-      foods: [],
+      products: [],
       showRemoveIcon: false,
       searchValue: ""
     });
   };
 
   render() {
-    const { showRemoveIcon, foods } = this.state;
+    const { showRemoveIcon, products } = this.state;
     const removeIconStyle = showRemoveIcon ? {} : { visibility: "hidden" };
 
-    const foodRows = foods.map((food, idx) => (
-      <tr key={idx} onClick={() => this.props.onFoodClick(food)}>
-        <td>{food.description}</td>
-        <td className="right aligned">{food.kcal}</td>
-        <td className="right aligned">{food.protein_g}</td>
-        <td className="right aligned">{food.fat_g}</td>
-        <td className="right aligned">{food.carbohydrate_g}</td>
+    const productRows = products.map((product, idx) => (
+      <tr key={idx} onClick={() => this.props.onProductClick(product)}>
+        <td>{product.name}</td>
+        <td className="right aligned">{product.brand}</td>
+        <td className="right aligned">{product.price}</td>
+        <td className="right aligned">{product.image}</td>
+        <td className="right aligned">{product.sku}</td>
       </tr>
     ));
 
     return (
-      <div id="food-search">
+      <div id="product-search">
         <table className="ui selectable structured large table">
           <thead>
             <tr>
@@ -68,7 +68,7 @@ class FoodSearch extends React.Component {
                     <input
                       className="prompt"
                       type="text"
-                      placeholder="Search it..."
+                      placeholder="Search Products..."
                       value={this.state.searchValue}
                       onChange={this.handleSearchChange}
                     />
@@ -83,15 +83,15 @@ class FoodSearch extends React.Component {
               </th>
             </tr>
             <tr>
-              <th className="eight wide">Description</th>
-              <th>Kcal</th>
-              <th>Protein (g)</th>
-              <th>Fat (g)</th>
-              <th>Carbs (g)</th>
+              <th className="eight wide">Name</th>
+              <th>Brand</th>
+              <th>Pridce (g)</th>
+              <th>Condition</th>
+              <th>Sku</th>
             </tr>
           </thead>
           <tbody>
-            {foodRows}
+            {productRows}
           </tbody>
         </table>
       </div>
@@ -99,4 +99,4 @@ class FoodSearch extends React.Component {
   }
 }
 
-export default FoodSearch;
+export default ProductSearch;
