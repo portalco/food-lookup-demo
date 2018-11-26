@@ -1,5 +1,5 @@
 import React from "react";
-import Client from "./Client";
+import ApiClient from "./ApiClient";
 
 const MATCHING_ITEM_LIMIT = 25;
 
@@ -7,9 +7,10 @@ class ProductSearch extends React.Component {
   state = {
     products: [],
     showRemoveIcon: false,
-    searchValue: ""
+    searchValue: "FB"
   };
 
+ 
   handleSearchChange = e => {
     const value = e.target.value;
 
@@ -27,33 +28,30 @@ class ProductSearch extends React.Component {
         showRemoveIcon: true
       });
 
-      Client.search(value, products => {
+     ApiClient.search(value, products => {
         this.setState({
-          products: products.slice(0, MATCHING_ITEM_LIMIT)
+          products: products
         });
       });
     }
   };
 
-  handleSearchCancel = () => {
-    this.setState({
-      products: [],
-      showRemoveIcon: false,
-      searchValue: ""
-    });
-  };
+ 
 
   render() {
     const { showRemoveIcon, products } = this.state;
     const removeIconStyle = showRemoveIcon ? {} : { visibility: "hidden" };
+   // const foodRows = foods.map((food, idx) => (
+   let newproduct = products.map(product => ({name: product.name, price: product.price}));
 
+     
     const productRows = products.map((product, idx) => (
       <tr key={idx} onClick={() => this.props.onProductClick(product)}>
-        <td>{product.name}</td>
-        <td className="right aligned">{product.brand}</td>
-        <td className="right aligned">{product.price}</td>
-        <td className="right aligned">{product.image}</td>
-        <td className="right aligned">{product.sku}</td>
+        <td>{product.Name}</td>
+        <td className="right aligned">{product.Condition}</td>
+        <td className="right aligned">{product.Price}</td>
+        <td className="right aligned">{product.Image}</td>
+        <td className="right aligned">{product.Sku}</td>
       </tr>
     ));
 
@@ -85,7 +83,7 @@ class ProductSearch extends React.Component {
             <tr>
               <th className="eight wide">Name</th>
               <th>Brand</th>
-              <th>Pridce (g)</th>
+              <th>Price</th>
               <th>Condition</th>
               <th>Sku</th>
             </tr>

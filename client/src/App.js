@@ -36,15 +36,7 @@ class App extends Component {
   };
 
 
-   componentDidMount() {
-    fetch('http://gnetworkinc-test.apigee.net/supplierservice?&format=json&pageSize=10&show=quantityLimit,width,shortDescription,color,manufacturer,sku,name,modelNumber,condition,image,salePrice,customerTopRated&sort=bestSellingRank')
-      .then(response => response.json())
-      .then(
-        data => this.setState({ products: data.products })
-        );
-  }
-
-
+  
   
 
   render() {
@@ -56,14 +48,14 @@ class App extends Component {
     return (
        
       <div className="App">
-      Product
+       
        <div className="ui text container">
           <SelectedProducts
             products={selectedProducts}
-            onFoodClick={this.removeProductItem}
+            onProductClick={this.removeProductItem}
           />
           <ProductSearch onProductClick={this.addProduct} />
-        </div>
+       </div>
          
         <div className="ui text container">
           <SelectedFoods

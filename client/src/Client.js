@@ -8,6 +8,14 @@ function search(query, cb) {
     .then(cb);
 }
 
+function getProducts(query, cb) {
+    fetch('http://gnetworkinc-test.apigee.net/supplierservice?&format=json&pageSize=10&show=quantityLimit,width,shortDescription,color,manufacturer,sku,name,modelNumber,condition,image,salePrice,customerTopRated&sort=bestSellingRank')
+      .then(response => response.json())
+      .then(
+        data => this.setState({ products: data.products })
+        );
+  }
+
 function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
     return response;
